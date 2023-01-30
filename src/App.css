@@ -12,6 +12,7 @@
 }
 
 .list-section {
+  /*grid-column: 1;*/
   width: 100%;
   background-color: cornflowerblue;
   padding: 20px;
@@ -20,10 +21,11 @@
 
 }
 .center-form {
-  position: absolute;
+  /*grid-column: 2;*/
+  /*position: absolute;
   top: 50%;
   left: 70%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);*/
 }
 
 form input {

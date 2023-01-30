@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
+import DisplayList from './components/DisplayList'
+
 
 function App() {
 
-    const [todos, setTodos] = useState([
+    const dailyRoutineTodos = [
         {  task: "Minoxidil", completed: false },
         {  task: "Juice + BF", completed: false },
         {  task:  "Nuts + dry fruits", completed: false},
+        {  task:  "Run", completed: false},
         {  task: "Lunch", completed: false },
         {  task: "Vitamins + finasteride", completed: false},
         {  task:"CrossFit", completed: false},
@@ -15,51 +18,23 @@ function App() {
         {  task: "Shower", completed: false},
         {  task: "spray + minoxidil + brush + vitamins", completed: false},
         {  task: "Visa and EB3", completed: false}
-    ]);
-    const [newTodo, setNewTodo] = useState('');
+    ];
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        setTodos([...todos, { task: newTodo, completed: false }]);
-        setNewTodo('');
-    };
+    const dailyXperiTodos = [
+        {  task: "check emails and slack", completed: false },
+    ];
 
-    const handleChange = event => {
-        setNewTodo(event.target.value);
-    };
+    const dailyAppsTodos = [
+        {  task: "check for improvement and add fetures", completed: false },
+    ];
 
-    const handleComplete = task => {
-        setTodos(todos.map(todo => {
-            if (todo.task === task) {
-                return { task, completed: true };
-            }
-            return todo;
-        }));
-    };
-
-    const activeTodos = todos.filter(todo => !todo.completed);
     return (
-        <div className="todo-app">
-            <h1 className="header">My Routine Today</h1>
-            <div className="center-form">
-                <form onSubmit={handleSubmit}>
-                    <input value={newTodo} onChange={handleChange} />
-                    <button type="submit"> Add Todo</button>
-                </form>
-            </div>
+    <div>
+        <DisplayList todos={dailyRoutineTodos}  header = "My Daily Routine"/>
+        <DisplayList todos={dailyXperiTodos} header = "My Xperi Routine Today" />
+        <DisplayList todos={dailyAppsTodos} header = "My Other Apps Routine Today" />
+    </div>
 
-            <div className="list-section">
-                <ol>
-                    {activeTodos.map((todo, index) => (
-                        <li key={index}>
-                            {todo.task}
-                            <button onClick={() => handleComplete(todo.task)}>Complete</button>
-                        </li>
-                    ))}
-                </ol>
-            </div>
-
-        </div>
     );
 }
 
