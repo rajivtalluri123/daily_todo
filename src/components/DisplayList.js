@@ -11,11 +11,32 @@ const DisplayList = (props) => {
         localStorage.setItem('leetCodeCount', leetCodeCount);
     }, [leetCodeCount]);
 
+    //count to track how time I did ishaKriya in last 10 days
+    const [shambavikriyaCount, setShambavikriyaCount] = useState(() => {
+        const initialCount = localStorage.getItem('shambavikriyaCount') || 0;
+        return parseInt(initialCount, 10);
+    });
+
+    useEffect(() => {
+        localStorage.setItem('shambavikriyaCount', shambavikriyaCount);
+    }, [shambavikriyaCount]);
+
+    //count to track how time I did ishaKriya in last 10 days
+    const [sdCount, setSdCount] = useState(() => {
+        const initialCount = localStorage.getItem('sdCount') || 0;
+        return parseInt(initialCount, 10);
+    });
+
+    useEffect(() => {
+        localStorage.setItem('sdCount', sdCount);
+    }, [sdCount]);
+
     //count to track how time I did run in last 10 days
     const [runCount, setRunCount] = useState(() => {
         const initialCount = localStorage.getItem('runCount') || 0;
         return parseInt(initialCount, 10);
     });
+
     useEffect(() => {
         localStorage.setItem('runCount', runCount);
     }, [runCount]);
@@ -48,6 +69,11 @@ const DisplayList = (props) => {
                     setLeetCodeCount(leetCodeCount +1);
                 if(task == 'Run')
                     setRunCount(runCount +1);
+                if(task == 'Shambavi-kriya 1' || task == 'Shambavi-kriya 2')
+                    setShambavikriyaCount(shambavikriyaCount +1);
+                if(task == 'System Design')
+                    setSdCount(sdCount +1);
+
                 if(task == 'Xperi') {
                     console.log(event.target.innerHTML);
                     if (event.target.innerHTML == 'Complete 1') {
@@ -60,7 +86,7 @@ const DisplayList = (props) => {
                         setXperiCount(xperiCount + 3);
                     }
                 }
-                if(task == 'App development') {
+                if(task == 'Alpha development') {
                     if(event.target.innerHTML == 'Complete 1') {
                         setAppDevCount(appDevCount +1);
                     }
@@ -108,16 +134,19 @@ const DisplayList = (props) => {
                     <li key={index}>
                         {todo.task}
                         {/*code to display no of pomodoro sessions done in that day for work*/}
-                        {todo.task == 'Xperi' || todo.task == 'App development' ? <div> <button onClick={(event) => handleComplete(event, todo.task)}>Complete 1</button>
+                        {todo.task == 'Xperi' || todo.task == 'Alpha development' ? <div> <button onClick={(event) => handleComplete(event, todo.task)}>Complete 1</button>
                             <button onClick={(event) => handleComplete(event, todo.task)}>Complete 2</button>
                             <button onClick={(event) => handleComplete(event, todo.task)}>Complete 3</button> </div> : (<button onClick={(event) => handleComplete(event, todo.task)}>Complete</button>)
                         }
 
                         {/*code to display counts*/}
-                        {todo.task == 'Leet Code' ?  <p> U have done LeetCoding or SystemDesigning <span style={{ color: 'red', fontWeight: 'bolder' }}>  {leetCodeCount} </span> times in this {props.decade} </p>
-                            : todo.task == 'Run' ? <p> U have done Runing <span style={{ color: 'red', fontWeight: 'bolder' }}> {runCount} </span> times in this {props.decade} </p>
-                                :todo.task == 'Xperi'? <p> U have done <span style={{ color: 'red', fontWeight: 'bolder' }}> {xperiCount} </span> sessions in this {props.decade}</p>
-                                    :todo.task == 'App development'? <p> U have done <span style={{ color: 'red', fontWeight: 'bolder' }}>{appDevCount}</span> sessions in this {props.decade}</p>:"" }
+                        {todo.task == 'Leet Code' ?  <p> U have done LeetCoding <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}>  {leetCodeCount} </span> times in this {props.decade} </p>
+                            : todo.task == 'Run' ? <p> U have done Runing <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}> {runCount} </span> times in this {props.decade} </p>
+                                :todo.task == 'Xperi'? <p> U have done <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}> {xperiCount} </span> sessions in this {props.decade}</p>
+                                    :todo.task == 'Alpha development'? <p> U have done <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}>{appDevCount}</span> sessions in this {props.decade}</p>
+                                        :todo.task == 'Shambavi-kriya 2' || todo.task == 'Shambavi-kriya 1' ?  <p> U have done <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}>{shambavikriyaCount}</span> times in this {props.decade}</p>
+                                            :todo.task == 'System Design'?  <p> U have done <span style={{ color: 'darkgreen', fontWeight: 'bolder' }}>{sdCount}</span> times in this {props.decade}</p>
+                                                :''}
 
                     </li>
                 ))}
